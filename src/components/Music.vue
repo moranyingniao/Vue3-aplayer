@@ -34,22 +34,7 @@
 
 <script setup lang="ts">
 import { defineProps, onMounted, ref, reactive, toRefs, onUnmounted, watchEffect, watch, computed, ToRef, Ref } from 'vue';
-let listShow:string = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAAIZJREFUOE/Vk9ENgCAMRB+buImOopvoJjqJuomjGBJIAMVQbYz2u3253rUG5TLKPP4HbIFaaMMKjH4mXVkdKBR3bL8bSuOsGVLkE+AM9EAElXroA7AKLdBWBJUCN6coBHZXKZeG4oERzA4/8bAKleXusFRhtk/q4RlI/VMmYHltZXUPvwfcAaAiFhXKHLbzAAAAAElFTkSuQmCC'
-let listHidden:string = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAAIlJREFUOE/VlO0JgDAMRF83cRNxEzfRTdRNdBNHkYABP2pLMILt79zrXa404HyCM4/ygC1QG9ewAKNqrpHdgUZz9/GnUsTpCszWG2JAgQ1A4wFUmBhTYAdUCafJUkTc72IF5oqajklikRXqElmTCVSiuJRiLfY0//nDzhUQc58txTXyK5iI//8fbi0aGBUmg9FOAAAAAElFTkSuQmCC'
-let playico:string =
-  "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAAThJREFUOE+tlYsNwjAMBV8nASaBTgJMAkwCnQQ6SWETdFEchTSmQcISoir2+W86+bKTtJXE9zqqPSQ9JY2SeJ5JV3mH8TUavCTdMh1+yx310UFSKYEnSQdJRy+CAm6OL/Y+BwIjAmCtgv4+KgeoAfnhLmnTSioiJZiBrAwIDA/VQjc4SQEBpGZ000uVOiE4pMOeoDcAJNyym2aE5ykjWLNq4NB9gJA97yhRjlwoC+ASGsYNIBF4zagBgZ9jEGX6E0AiYEBr4gGJsmaTgF6Ha0BSnW1IjCakTFO83SyBXqrwmJYVQIyYdm9sqDEphsFdGJsRIN1Jk94wxF6tYfT/WD0cpE3Lj8PSxnzbEBr1cRxQtsvxy/kiMu5l9Xzl60Y9ELqPd2uGHdhV7Origc2hGPPhcNizwd2/gDe1dFHPy4O03gAAAABJRU5ErkJggg==";
-let preico:string =
-  "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAAKxJREFUOE+1lO0NgzAMRB+bwCbtJnQS2kkYhW4Co6CrEglFTewE8O/z8/lD7rg4uot53AocgQn4Ai+nc+kfQb8p5+hwBfoAGoCfIBPSzQEmiUw8W4FytCSFmoECCZhGNVAQtRhHcgqowb+NJbkd5lpsdnjcfMmk26E1u1jEDYwJWogOPxfVQIFKbpuAJbcm0Hoaqdu/QN2b5lTzHOKxf0Leve/L+bHKMmtW1UV2DfI3FSFWFN4AAAAASUVORK5CYII=";
-let nextico:string =
-  "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAAKhJREFUOE+1lMENwjAMAK+bMAqMwiTAJmUS2ARGQfeIZEVqElLXXzuni+N4ITmWZB6HAs/ADXgDT+A7YP8CTsADWK2PhiaFGkKvHaigT6i/1ECTFsW4N2yngC3baWAxrm13A2vbFGCx9THTgE6AL5oCtI/OnLEL6JA7l9qVmAaWK9YfZwpor6JVhP4FFGKvtmBDPYzLoTS+tx+ay6F3eCh/6D4cMugV/QAwiz8VFmQq4gAAAABJRU5ErkJggg==";
-let pauseico:string =
-  "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAAK1JREFUOE/tlUsOgyAQhmeEg+hN9BxiQhc2HsnURUnEc8hN5CDWaWgyKU1f6WMJO5ifL4THB8KfGz7iNU2rwziR8Nb2Ls7ENSnBG9P7uH4HVKqdAbDkkJRZwZO07vJ13ZYrgJy1Q/USWNf7BRFyDiHSbhwHE/phdUR45BoR+Gk6FAl4e85pDyFdm/RSvpADQFaxE5XqSoBt/sg2rKlngg1QxNNFb0II91awv/4IZ4D2CST0Pj85AAAAAElFTkSuQmCC";
-let props = defineProps(['songs','direction']);
-let timer:ToRef<number> = ref(0);
-let listOpen:ToRef<boolean> = ref(false);
-let audio:Ref<any> = ref();
-
-interface state{
+interface state {
   musicIndex: number,//当前音乐播放下标
   musicStatus: boolean,//是否播放
   musicName: string,//当前歌名
@@ -60,7 +45,34 @@ interface state{
   musicLrc: string,//当前歌词
   musicAvatar: string
 }
-let state:state = reactive({
+interface songs {
+  name: string,
+  artist: string,
+  url: string,
+  cover: string, // prettier-ignore
+  lrc: string
+}
+interface props{
+  songs?:Array<songs> | any,
+  direction?:string
+}
+let listShow: string = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAAIZJREFUOE/Vk9ENgCAMRB+buImOopvoJjqJuomjGBJIAMVQbYz2u3253rUG5TLKPP4HbIFaaMMKjH4mXVkdKBR3bL8bSuOsGVLkE+AM9EAElXroA7AKLdBWBJUCN6coBHZXKZeG4oERzA4/8bAKleXusFRhtk/q4RlI/VMmYHltZXUPvwfcAaAiFhXKHLbzAAAAAElFTkSuQmCC'
+let listHidden: string = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAAIlJREFUOE/VlO0JgDAMRF83cRNxEzfRTdRNdBNHkYABP2pLMILt79zrXa404HyCM4/ygC1QG9ewAKNqrpHdgUZz9/GnUsTpCszWG2JAgQ1A4wFUmBhTYAdUCafJUkTc72IF5oqajklikRXqElmTCVSiuJRiLfY0//nDzhUQc58txTXyK5iI//8fbi0aGBUmg9FOAAAAAElFTkSuQmCC'
+let playico: string =
+  "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAAThJREFUOE+tlYsNwjAMBV8nASaBTgJMAkwCnQQ6SWETdFEchTSmQcISoir2+W86+bKTtJXE9zqqPSQ9JY2SeJ5JV3mH8TUavCTdMh1+yx310UFSKYEnSQdJRy+CAm6OL/Y+BwIjAmCtgv4+KgeoAfnhLmnTSioiJZiBrAwIDA/VQjc4SQEBpGZ000uVOiE4pMOeoDcAJNyym2aE5ykjWLNq4NB9gJA97yhRjlwoC+ASGsYNIBF4zagBgZ9jEGX6E0AiYEBr4gGJsmaTgF6Ha0BSnW1IjCakTFO83SyBXqrwmJYVQIyYdm9sqDEphsFdGJsRIN1Jk94wxF6tYfT/WD0cpE3Lj8PSxnzbEBr1cRxQtsvxy/kiMu5l9Xzl60Y9ELqPd2uGHdhV7Origc2hGPPhcNizwd2/gDe1dFHPy4O03gAAAABJRU5ErkJggg==";
+let preico: string =
+  "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAAKxJREFUOE+1lO0NgzAMRB+bwCbtJnQS2kkYhW4Co6CrEglFTewE8O/z8/lD7rg4uot53AocgQn4Ai+nc+kfQb8p5+hwBfoAGoCfIBPSzQEmiUw8W4FytCSFmoECCZhGNVAQtRhHcgqowb+NJbkd5lpsdnjcfMmk26E1u1jEDYwJWogOPxfVQIFKbpuAJbcm0Hoaqdu/QN2b5lTzHOKxf0Leve/L+bHKMmtW1UV2DfI3FSFWFN4AAAAASUVORK5CYII=";
+let nextico: string =
+  "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAAKhJREFUOE+1lMENwjAMAK+bMAqMwiTAJmUS2ARGQfeIZEVqElLXXzuni+N4ITmWZB6HAs/ADXgDT+A7YP8CTsADWK2PhiaFGkKvHaigT6i/1ECTFsW4N2yngC3baWAxrm13A2vbFGCx9THTgE6AL5oCtI/OnLEL6JA7l9qVmAaWK9YfZwpor6JVhP4FFGKvtmBDPYzLoTS+tx+ay6F3eCh/6D4cMugV/QAwiz8VFmQq4gAAAABJRU5ErkJggg==";
+let pauseico: string =
+  "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAAK1JREFUOE/tlUsOgyAQhmeEg+hN9BxiQhc2HsnURUnEc8hN5CDWaWgyKU1f6WMJO5ifL4THB8KfGz7iNU2rwziR8Nb2Ls7ENSnBG9P7uH4HVKqdAbDkkJRZwZO07vJ13ZYrgJy1Q/USWNf7BRFyDiHSbhwHE/phdUR45BoR+Gk6FAl4e85pDyFdm/RSvpADQFaxE5XqSoBt/sg2rKlngg1QxNNFb0II91awv/4IZ4D2CST0Pj85AAAAAElFTkSuQmCC";
+let props:props = defineProps(['songs', 'direction']);
+let timer: ToRef<number> = ref(0);
+let listOpen: ToRef<boolean> = ref(false);
+let audio: Ref<any> = ref();
+
+
+let state: state = reactive({
   musicIndex: 0,//当前音乐播放下标
   musicStatus: false,//是否播放
   musicName: 'test',//当前歌名
@@ -72,7 +84,7 @@ let state:state = reactive({
   musicAvatar: 'https://ts1.cn.mm.bing.net/th/id/R-C.867a5ec406f8fb62bf310ca42fe84559?rik=FvpnfMNqHOZ2ZQ&riu=http%3a%2f%2fimg2.woyaogexing.com%2f2017%2f10%2f07%2fb8ae5615b60fec87!400x400_big.jpg&ehk=CLFprcOVbJJNsYQlCbexxjw9qqPjVAdbd88z8C%2bzOCc%3d&risl=&pid=ImgRaw&r=0&sres=1&sresct=1',//当前歌曲头像
 })
 
-onMounted(():void => {
+onMounted((): void => {
   //加载脚本
   loadingScript();
   timeMusic();
@@ -82,12 +94,17 @@ onMounted(():void => {
   } else {
     state.musicStatus = true;
   }
+
+  //检测是否传值
+  if (Object.prototype.toString.call(props.songs) !== '[object Array]') {
+    console.error('传入的类型应该是一个数组')
+  }
 })
-onUnmounted(():void => {
+onUnmounted((): void => {
   timer.value = 0;
 })
 //加载外部脚本
-const loadingScript = ():void => {
+const loadingScript = (): void => {
   let link = document.createElement('link');
   let script1 = document.createElement('script');
   let script2 = document.createElement('script');
@@ -110,25 +127,25 @@ const loadingScript = ():void => {
   head.appendChild(script2);
   head.appendChild(script3);
 }
-const open = ():void => {
+const open = (): void => {
   listOpen.value = !listOpen.value
 }
-const timeMusic = ():void => {
-  timer.value = setInterval(():void => {
+const timeMusic = (): void => {
+  timer.value = setInterval((): void => {
     state.currentTime = audio.value.currentTime ? audio.value.currentTime : 0;
-    state.duration = audio.value.duration ? audio.value.duration :0;
+    state.duration = audio.value.duration ? audio.value.duration : 0;
   }, 1500)
 }
 
 //播放事件
-const playToggle = ():void => {
+const playToggle = (): void => {
   if (musicStatus.value) {
     pause()
   } else {
     play()
   }
 }
-const play = ():void => {
+const play = (): void => {
   //播放第几个
   state.musicSrc = props.songs[state.musicIndex].url;
   let playPromise = audio.value.play();
@@ -140,11 +157,11 @@ const play = ():void => {
     console.log('加载资源中')
   })
 }
-const choose = (index: number):void => {
+const choose = (index: number): void => {
   state.musicIndex = index;
   play();
 }
-const next = ():void => {
+const next = (): void => {
   state.musicIndex++;
   if (state.musicIndex >= props.songs.length) {
     state.musicIndex = 0;
@@ -153,7 +170,7 @@ const next = ():void => {
     play();
   }
 }
-const pre = ():void => {
+const pre = (): void => {
   state.musicIndex--;
   if (state.musicIndex < 0) {
     state.musicIndex = props.songs.length - 1;
@@ -162,17 +179,17 @@ const pre = ():void => {
     play()
   }
 }
-const pause = ():void => {
+const pause = (): void => {
   musicStatus.value = false;
   audio.value.pause();
 
 }
 //计算百分比
-const timePercentage = computed(():string => {
+const timePercentage = computed((): string => {
 
   return Number((state.currentTime * 1 / state.duration * 1).toFixed(2)) * 100 + '%'
 })
-watch(():void => { state.currentTime }, ():void => {
+watch((): void => { state.currentTime }, (): void => {
   if (state.currentTime === state.duration) {
     next();
     state.musicStatus = true;
@@ -180,7 +197,7 @@ watch(():void => { state.currentTime }, ():void => {
 
 }, { deep: true })
 //监听值得改变  立即监听 
-watchEffect(():void => {
+watchEffect((): void => {
   state.musicName = props.songs[state.musicIndex].name;
   state.musicArtist = props.songs[state.musicIndex].artist;
   state.musicAvatar = props.songs[state.musicIndex].cover;
@@ -248,7 +265,7 @@ let { musicIndex,//当前音乐播放下标
   padding: 12px;
   bottom: 0;
   width: 300px;
-  overflow:hidden ;
+  overflow: hidden;
 
   .control {
     position: relative;
