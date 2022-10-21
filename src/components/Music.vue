@@ -82,7 +82,6 @@ onMounted(():void => {
   } else {
     state.musicStatus = true;
   }
-
 })
 onUnmounted(():void => {
   timer.value = 0;
