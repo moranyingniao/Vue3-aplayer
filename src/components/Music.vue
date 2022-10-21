@@ -116,7 +116,7 @@ const open = ():void => {
 const timeMusic = ():void => {
   timer.value = setInterval(():void => {
     state.currentTime = audio.value.currentTime ? audio.value.currentTime : 0;
-    state.duration = audio.value.duration;
+    state.duration = audio.value.duration ? audio.value.duration :0;
   }, 1500)
 }
 
