@@ -2,7 +2,7 @@
   <div class="player" :style="direction==='right' ?{'right':'0px'} :{'left':'0px'}">
     <div class="control">
       <div class="avatar">
-        <img :src="musicAvatar" :class="musicStatus ? 'active' : ''" alt="">
+        <img :src="musicAvatar" :class="musicStatus ? 'active' : ''" alt="404图片">
       </div>
       <div class="control-list">
         <span class="name">{{musicName}}</span>
